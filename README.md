@@ -8,5 +8,5 @@ A curated collection of Docker Compose files that simplify setup of environemnts
 
 
 ## Contributing
-The following collection is by no means exhaustive, feel free to propose a change via PR if you miss anything.
+The following collection is by no means exhaustive, feel free to propose a change via PR if you'd like to add anything.
 
