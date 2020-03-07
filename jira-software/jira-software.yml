@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  jira:
+    depends_on:
+      - jira-postgres
+    image: teamatldocker/jira
+    container_name: jira
+    networks:
+      - jira_network
+    volumes:
+      - ./jira:/var/atlassian/jira
+    ports:
+      - 9100:8080
+    environment:
+      - JIRA_DATABASE_URL=postgresql://jira@jira-postgres/jira_db
+      - JIRA_DB_PASSWORD=52c50ae4-856b-4b2b-9831-ffb7fff82f02
+      - SETENV_JVM_MINIMUM_MEMORY=2048m
+      - SETENV_JVM_MAXIMUM_MEMORY=4096m
+      - JIRA_PROXY_NAME=
+      - JIRA_PROXY_PORT=
+      - JIRA_PROXY_SCHEME=
+    logging:
+      # limit logs retained on host to 25MB
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "50"
+
+  jira-postgres:
+    image: postgres:9.5-alpine
+    container_name: jira-postgres
+    networks:
+      - jira_network
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=jira
+      # CHANGE THE PASSWORD!
+      - POSTGRES_PASSWORD=52c50ae4-856b-4b2b-9831-ffb7fff82f02
+      - POSTGRES_DB=jira_db
+      - POSTGRES_ENCODING=UNICODE
+      - POSTGRES_COLLATE=C
+      - POSTGRES_COLLATE_TYPE=C
+    logging:
+      # limit logs retained on host to 25MB
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "50"
+
+networks:
+  jira_network:
+    driver: bridge

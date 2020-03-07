@@ -5,6 +5,7 @@ A curated collection of Docker Compose files that simplify setup of environemnts
 | Stack | Description |
 | --- | --- |
 | kafka-data-streaming-stack | Single Kafka + Single Zookeeper + Confluent Schema Registry + Kafdrop |
+| jira-software | Jira Software + PostgreSQL |
 
 
 ## Contributing
